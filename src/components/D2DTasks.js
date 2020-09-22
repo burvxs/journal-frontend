@@ -1,32 +1,61 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from "axios";
+
+import { USER_TASKS_URL } from "../constants";
+
 import TaskItem from './TaskItem';
+import CreateTask from './CreateTask';
 
 const D2DTasks = (props) => {
+    const [createdTask, setCreatedTask] = useState({})
+    const [allD2Dtasks, setAllD2DTasks] = useState([]);
+
+    const passCreatedTask = (newTask) => {
+        if (newTask !== undefined){
+            setCreatedTask(newTask)
+            setAllD2DTasks([...allD2Dtasks, createdTask])
+        }
+    }
+    const loadD2DTasks = () => {
+        axios
+        .get(USER_TASKS_URL, {
+            params: { request : "D2D" },
+        })
+        .then((res) => {
+            console.log(res)
+            setAllD2DTasks([...res.data["requested_task_set"]])
+        })
+        .catch((err) => console.warn(err));
+    };
+
+    useEffect(() => {
+        loadD2DTasks("D2D");
+    }, [createdTask]);
+
     const renderTasks = () => {
-        if (props.tasks){
-            return props.tasks.map((item) => {
+        if (allD2Dtasks){
+            return allD2Dtasks.map((item) => {
                 return (
+                  <React.Fragment key={item.id}>
                     <TaskItem
-                        priorityLevel={item["priority_level"]}
-                        userTask={item.task}
-                        solidifier={item.solidifier}
-                        isComplete={item.completed}
-                        key={item.id}
+                      priorityLevel={item["priority_level"]}
+                      userTask={item.task}
+                      solidifier={item.solidifier}
+                      isComplete={item.completed}
+                      key={item.id}
                     />
+                  </React.Fragment>
                 );
             });
         }
     }
     return (
       <React.Fragment>
-        <div className="priorityLevel">Priority Level</div>
+        <div className="completed">Completed?</div>
         <div className="date">Tuesday 22nd of September</div>
         <div className="solidifier">Solidifier</div>
-        <div className="completed">Completed?</div>
-        <input type="number" style={{ width: "30px", height: "20px" }} />
-        <input type="text" />
-        <input type="text" />
-        <input type="checkbox" />
+        <div className="priorityLevel">Priority Level</div>
+        <CreateTask onCreate={passCreatedTask}/>
         {renderTasks()}
       </React.Fragment>
     );

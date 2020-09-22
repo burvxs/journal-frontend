@@ -2,15 +2,21 @@ import React, {useState} from 'react';
 
 const TaskItem = (props) => {
     const [isComplete, setIsComplete] = useState(props.isComplete)
+
     const handleCompletion = (e) => {
-        setIsComplete(e.target.value)
+        setIsComplete(!isComplete)
     }
+
     return (
       <React.Fragment>
-        <p>{props.priorityLevel}</p>
-        <p>{props.userTask}</p>
-        <p>{props.solidifier}</p>
-        <input type="checkbox" checked={isComplete} onChange={handleCompletion}/>
+          <input
+            type="checkbox"
+            checked={isComplete || false}
+            onChange={handleCompletion}
+          />
+          <p>{props.userTask}</p>
+          <p>{props.solidifier}</p>
+          <p>{props.priorityLevel}</p>
       </React.Fragment>
     );
 }
