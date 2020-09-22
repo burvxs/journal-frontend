@@ -1,23 +1,32 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const TaskItem = (props) => {
-    const [isComplete, setIsComplete] = useState(props.isComplete)
+    const [isComplete, setIsComplete] = useState(props.isComplete);
+    const [onCompleteClass, setOnCompleteClass] = useState();
 
     const handleCompletion = (e) => {
-        setIsComplete(!isComplete)
+        setIsComplete(!isComplete);
+        !isComplete 
+        ? setOnCompleteClass("completed")
+        : setOnCompleteClass('')
     }
-
+    useEffect(() => {
+        props.isComplete
+        ? setOnCompleteClass("completed")
+        : setOnCompleteClass("");
+    }, [])
     return (
-      <React.Fragment>
-          <input
-            type="checkbox"
-            checked={isComplete || false}
-            onChange={handleCompletion}
-          />
-          <p>{props.userTask}</p>
-          <p>{props.solidifier}</p>
-          <p>{props.priorityLevel}</p>
-      </React.Fragment>
+      <div className="itemWrapper">
+        <input
+          type="checkbox"
+          checked={isComplete || false}
+          onChange={handleCompletion}
+          className={`${onCompleteClass} `}
+        />
+        <p className={`${onCompleteClass} item`}>{props.userTask}</p>
+        <p className={`${onCompleteClass} item`}>{props.solidifier}</p>
+        <p className={`${onCompleteClass} item`}>{props.priorityLevel}</p>
+      </div>
     );
 }
 

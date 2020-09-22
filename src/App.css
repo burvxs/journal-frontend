@@ -7,6 +7,14 @@
   column-gap: 30px
 }
 
-.taskItem {
-  display: inline;
+.itemWrapper {
+  display: contents;
+}
+.itemWrapper > .completed {
+  background: grey;
+}
+
+.itemWrapper > .item {
+  height : 50px;
+  width : 300px;
 }
