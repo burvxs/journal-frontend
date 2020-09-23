@@ -21,11 +21,13 @@ const TaskItem = (props) => {
         .catch(err => console.log(err))
         console.log(isComplete);
     }
+    
     useEffect(() => {
         props.isComplete
         ? setOnCompleteClass("completed")
         : setOnCompleteClass("");
-    }, [])
+    }, [props.isComplete]);
+
     return (
       <div className="itemWrapper">
         <input

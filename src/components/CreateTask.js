@@ -17,7 +17,7 @@ const CreateTask = (props) => {
     }
     const validateInput = () => {
         console.log(state);
-        if (state.priorityLevel == '' || state.solidifier == '' || state.task == ''){
+        if (state.priorityLevel === '' || state.solidifier === '' || state.task === ''){
             return false
         }else{
             return true
@@ -29,7 +29,7 @@ const CreateTask = (props) => {
         console.log(validateInput());
 
         setTimeout(() => {
-            if (validateInput()) {
+            if (validateInput() && props.taskType === "D2D") {
                 axios.post(TASK_CREATE_URL, {
                     task: state.task,
                     solidifier: state.solidifier,
@@ -44,6 +44,22 @@ const CreateTask = (props) => {
                 .catch((err) => {
                     console.log(err);
                 });
+            }else if(validateInput() && props.taskType === "SUBLIST"){
+                    axios.post(TASK_CREATE_URL, {
+                        task: state.task,
+                        solidifier: state.solidifier,
+                        priorityLevel: state.priorityLevel,
+                        subListId : props.listId,
+                        global: false,
+                    })
+                    .then((res) => {
+                    props.onCreate(res.data);
+                    console.log("POST DATA: ", res.data);
+                    e.submit();
+                    })
+                    .catch((err) => {
+                    console.log(err);
+                    });
             }
         }, 1000);
     }

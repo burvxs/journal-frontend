@@ -21,7 +21,7 @@ const Login = (props) => {
             console.log(res.data);
             localStorage.setItem("jwt", res.data.jwt)
             console.log(props.history.location);
-            props.history.push("/", );
+            props.history.push("/D2D");
         })
         .catch(err => {
             setIsError404(true)

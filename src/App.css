@@ -32,11 +32,14 @@
   display: contents;
 }
 
-.categoryList {
+.categoryWrapper {
   position: absolute;
-  margin-top : -250px;
 }
 
 .categoryList > ul {
   list-style-type: none;
+}
+
+.taskListWrapper {
+  display: contents;
 }
