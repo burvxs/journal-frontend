@@ -3,12 +3,15 @@
     task sets
 */
 import D2DTasks from './D2DTasks'
-import React from "react";
+import CategoryList from "./CategoryList";
+import React, {useState} from "react";
 
 const Tasker = () => {
+    const [currentComponent, setCurrentComponent] = useState(<D2DTasks/>)
     return (
         <div className="taskContainer">
-            <D2DTasks/>
+            <CategoryList/>
+            {currentComponent}
         </div>
     );
 }

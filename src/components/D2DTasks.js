@@ -6,7 +6,7 @@ import { USER_TASKS_URL } from "../constants";
 import TaskItem from './TaskItem';
 import CreateTask from './CreateTask';
 
-const D2DTasks = (props) => {
+const D2DTasks = () => {
     const [createdTask, setCreatedTask] = useState({})
     const [allD2Dtasks, setAllD2DTasks] = useState([]);
 
@@ -33,31 +33,31 @@ const D2DTasks = (props) => {
     }, [createdTask]);
 
     const renderTasks = () => {
-        if (allD2Dtasks){
-            return allD2Dtasks.map((item) => {
-                return (
-                  <React.Fragment key={item.id}>
+        const renderArray = allD2Dtasks.map((item) => {
+            return (
+                <React.Fragment key={item.id}>
                     <TaskItem
-                      priorityLevel={item["priority_level"]}
-                      userTask={item.task}
-                      solidifier={item.solidifier}
-                      isComplete={item.completed}
-                      key={item.id}
+                        priorityLevel={item["priority_level"]}
+                        userTask={item.task}
+                        solidifier={item.solidifier}
+                        isComplete={item.completed}
+                        id={item.id}
+                        key={item.id}
                     />
-                  </React.Fragment>
-                );
-            });
-        }
+                </React.Fragment>
+            );
+        });
+        return renderArray;
     }
     return (
-      <React.Fragment>
-        <div className="completed">Completed?</div>
-        <div className="date">Tuesday 22nd of September</div>
+      <div id="columnHeaders">
+        <div className="completed"></div>
+        <div className="date">Tasks</div>
         <div className="solidifier">Solidifier</div>
         <div className="priorityLevel">Priority Level</div>
         <CreateTask onCreate={passCreatedTask}/>
         {renderTasks()}
-      </React.Fragment>
+      </div>
     );
 }
 

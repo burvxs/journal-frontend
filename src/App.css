@@ -1,7 +1,7 @@
 .taskContainer {
   display: grid;
   grid-column: auto;
-  grid-template-columns: 200px 200px 200px 200px;
+  grid-template-columns: 50px 200px 200px 200px;
   grid-template-rows: auto;
   row-gap: 20px;
   column-gap: 30px
@@ -17,4 +17,26 @@
 .itemWrapper > .item {
   height : 50px;
   width : 300px;
+}
+
+.D2Dform {
+  display: contents;
+}
+
+.taskContainer{
+  margin-top : 35px;
+  margin-left: 30%;
+}
+
+#columnHeaders {
+  display: contents;
+}
+
+.categoryList {
+  position: absolute;
+  margin-top : -250px;
+}
+
+.categoryList > ul {
+  list-style-type: none;
 }

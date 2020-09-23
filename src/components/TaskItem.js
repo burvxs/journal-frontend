@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import {TASK_UPDATE_URL} from '../constants'
+import axios from 'axios';
 
 const TaskItem = (props) => {
     const [isComplete, setIsComplete] = useState(props.isComplete);
@@ -8,7 +10,16 @@ const TaskItem = (props) => {
         setIsComplete(!isComplete);
         !isComplete 
         ? setOnCompleteClass("completed")
-        : setOnCompleteClass('')
+        : setOnCompleteClass('');
+
+        axios.patch(`${TASK_UPDATE_URL}/${props.id}`, {
+            "is_complete" : JSON.stringify(!isComplete)
+        })
+        .then((res) => {
+            console.log(res)
+        })
+        .catch(err => console.log(err))
+        console.log(isComplete);
     }
     useEffect(() => {
         props.isComplete
