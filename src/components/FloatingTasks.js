@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import ColumnHeader from "./ColumnHeader";
 import CreateTask from "./CreateTask";
 import {renderTasks, loadRequestedTasks} from '../utils'
 
@@ -14,7 +13,6 @@ const FloatingTasks = () => {
 
     return (
         <React.Fragment>
-            <ColumnHeader/>
             <CreateTask taskType="FLOATER" />
             {renderTasks(floaters)}
         </React.Fragment>

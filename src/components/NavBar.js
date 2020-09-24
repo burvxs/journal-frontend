@@ -9,13 +9,13 @@ const NavBar = () => {
 
     return (
       <nav className="topLevelNav">
-        <Link to="/D2D" className="D2DNav">
-          D2D Tasks
+        <Link to="/D2D" className="D2DNav navItem">
+            Day 2 Day
         </Link>
-        <Link onClick={logout} to="" className="logout">
+        <Link onClick={logout} to="" className="logout navItem">
           Logout
         </Link>
-        <Link to="/floaters" className="floatingTasksNav">
+        <Link to="/floaters" className="floatingTasksNav navItem">
           Floating Tasks
         </Link>
       </nav>

@@ -5,7 +5,13 @@ import SubCategoryList from "./components/SubCategoryList";
 import StatSheet from "./components/StatSheet";
 import CategoryList from "./components/CategoryList";
 import WeeklyReview from "./components/WeeklyReview";
-import {checkAuth, generateCurrentDateString, isSunday} from './utils';
+import {
+        checkAuth,
+        generateCurrentDateString, 
+        isSunday, 
+        setDefaultHeaders
+} 
+from './utils';
 import Login from "./components/Login";
 import axios from 'axios';
 import NavBar from './components/NavBar';
@@ -13,11 +19,6 @@ import {HashRouter as Router, Route} from 'react-router-dom';
 import FloatingTasks from './components/FloatingTasks';
 
 const Routes = () => {
-    const setDefaultHeaders = () => {
-        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
-            "jwt"
-        )}`;
-    };
     const onlyRenderReviewRouteIfSunday = () => {
         if (isSunday()){
             return (
@@ -45,7 +46,7 @@ const Routes = () => {
         <div>
             <Route path="/" component={NavBar}/>
             {onlyRenderReviewRouteIfSunday()}
-            <Route path="/" render={(props) => {
+            <Route path="/D2D" render={(props) => {
                 if (!checkAuth()) {
                     props.history.push("/login");
                 }else{
@@ -61,14 +62,14 @@ const Routes = () => {
                     props.history.push("/login");
                 } else {
                     return (
-                    <div className="contentWrapper">
+                      <div className="contentWrapper">
                         <div className="taskContainer">
-                            <FloatingTasks {...props} />
+                          <FloatingTasks {...props} />
                         </div>
-                        <div>
-                            <CategoryList {...props} />
+                        <div className="listWrapper">
+                          <CategoryList {...props} />
                         </div>
-                    </div>
+                      </div>
                     );
                 }
             }}/>
@@ -78,11 +79,11 @@ const Routes = () => {
                 }else{
                     return (
                         <div className="contentWrapper">
-                            <h5>{generateCurrentDateString()}</h5>
+                            <h3 id="currentDate">{generateCurrentDateString()}</h3>
                             <div className="taskContainer">
                                 <D2DTasks {...props} />
                             </div>
-                            <div>
+                            <div className="listWrapper">
                                 <CategoryList {...props} />
                             </div>
                         </div>
@@ -96,12 +97,13 @@ const Routes = () => {
                 }else{
                     return (
                       <div className="contentWrapper">
+                        <h3 id="currentDate">{generateCurrentDateString()}</h3>
                         <div className="taskContainer">
                           <D2DTasks {...props} />
                         </div>
-                        <div>
+                        <div className="listWrapper">
                           <CategoryList {...props} />
-                          <SubCategoryList {...props}/>
+                          <SubCategoryList {...props} />
                         </div>
                       </div>
                     );
@@ -115,10 +117,11 @@ const Routes = () => {
                     return (
                       <div>
                         <div className="contentWrapper">
+                          <div id="spacer"></div>
                           <div className="taskContainer">
                             <CategorisedTasks {...props} />
                           </div>
-                          <div>
+                          <div className="listWrapper">
                             <CategoryList {...props} />
                             <SubCategoryList {...props} />
                           </div>

@@ -3,6 +3,7 @@ export const LOGIN_AUTH_URL = "http://localhost:3000/auth/login";
 export const USER_TASKS_URL = "http://localhost:3000/auth/tasks";
 export const TASK_CREATE_URL = "http://localhost:3000/auth/tasks";
 export const TRACKER_INDEX_URL = "http://localhost:3000/auth/trackers";
+export const REVIEW_CREATE_URL = "http://localhost:3000/auth/reviews";
 export const SUBLIST_CREATE_URL = "http://localhost:3000/auth/sub_lists";
 export const CATEGORY_INDEX_URL = "http://localhost:3000/auth/categories";
 export const CATEGORY_CREATE_URL = "http://localhost:3000/auth/categories";

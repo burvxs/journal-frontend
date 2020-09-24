@@ -77,19 +77,19 @@ const CreateTask = (props) => {
                     console.log(err);
                     });
             }
-        }, 1000);
+        }, 500);
     }
 
     return (
       <React.Fragment>
-        <form className="D2Dform" onSubmit={handleSubmit}>
+        <form className="taskForm" onSubmit={handleSubmit}>
           <input type="checkbox" readOnly />
-          <input name="task" type="text" onClick={(e) => console.log(e.target)} onChange={handleInput} />
-          <input name="solidifier" type="text" onChange={handleInput} />
+          <input name="task" placeholder="Your task. Get it done" type="text" onChange={handleInput} />
+          <input name="solidifier" placeholder="The solidifier. eg Get fit" type="text" onChange={handleInput} />
           <input
             type="text"
             name="priorityLevel"
-            style={{ width: "30px", height: "20px" }}
+            placeholder="Your priority level"
             onChange={handleInput}
           />
           <button hidden type="submit"></button>

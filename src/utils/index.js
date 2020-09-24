@@ -30,12 +30,16 @@ const onDataFail = () => {
     console.log("Tasks havent been retrieved from the server yet")
 }
 
+
+
 export const loadRequestedTasks = (request, setRequestedTasks, callback=null) => {
     axios.get(USER_TASKS_URL, {
         params: request,
     })
     .then((res) => {
-        setRequestedTasks([...res.data["requested_task_set"]]);
+        if(checkAuth()){
+            setRequestedTasks([...res.data["requested_task_set"]]);
+        }
         if(callback){
             callback(res.data)
         }
@@ -45,9 +49,9 @@ export const loadRequestedTasks = (request, setRequestedTasks, callback=null) =>
 
 export const checkAuth = () => {
     if(localStorage.getItem('jwt') === "null"){
-        return false
+        return false;
     }else{
-        return true
+        return true;
     }
 }
 
@@ -59,9 +63,15 @@ export const generateCurrentDateString = () => {
 
 export const isSunday = () => {
     const currentDate = new Date();
-    if (currentDate.getDay() === 0) {
+    if (currentDate.getDay() === 4) {
         return true;
     }else{
         return false;
     }
 }
+
+export const setDefaultHeaders = () => {
+    axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
+    "jwt"
+    )}`;
+};

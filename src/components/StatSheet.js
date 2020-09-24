@@ -43,9 +43,9 @@ const StatSheet = (props) => {
     }
 
     useEffect(() => {
-        fetchStats();
-        setInterval(fetchStats, 3000);
-    }, [props.match.params])
+        //fetchStats();
+        //setInterval(fetchStats, 3000);
+    }, [])
     return (
         <React.Fragment>
             {displayStats()}
