@@ -14,7 +14,7 @@ const FloatingTasks = () => {
 
     return (
         <React.Fragment>
-            <ColumnHeader />
+            <ColumnHeader/>
             <CreateTask taskType="FLOATER" />
             {renderTasks(floaters)}
         </React.Fragment>

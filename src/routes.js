@@ -2,8 +2,10 @@ import React from 'react';
 import D2DTasks from './components/D2DTasks';
 import CategorisedTasks from "./components/CategorisedTasks";
 import SubCategoryList from "./components/SubCategoryList";
+import StatSheet from "./components/StatSheet";
 import CategoryList from "./components/CategoryList";
-import {checkAuth, generateCurrentDateString} from './utils';
+import WeeklyReview from "./components/WeeklyReview";
+import {checkAuth, generateCurrentDateString, isSunday} from './utils';
 import Login from "./components/Login";
 import axios from 'axios';
 import NavBar from './components/NavBar';
@@ -16,11 +18,44 @@ const Routes = () => {
             "jwt"
         )}`;
     };
+    const onlyRenderReviewRouteIfSunday = () => {
+        if (isSunday()){
+            return (
+              <Route
+                exact
+                path="/review"
+                render={(props) => {
+                  if (!checkAuth) {
+                    props.history.push("/login");
+                  } else {
+                    return (
+                      <div>
+                        <WeeklyReview {...props}/>
+                      </div>
+                    );
+                  }
+                }}
+              />
+            );
+        }
+    }
     setDefaultHeaders();
     return (
       <Router>
         <div>
             <Route path="/" component={NavBar}/>
+            {onlyRenderReviewRouteIfSunday()}
+            <Route path="/" render={(props) => {
+                if (!checkAuth()) {
+                    props.history.push("/login");
+                }else{
+                    return (
+                        <div className="statSheet">
+                            <StatSheet {...props}/>
+                        </div>
+                    )
+                }
+            }}/>
             <Route exact path="/floaters" render={(props) => {
                 if (!checkAuth()) {
                     props.history.push("/login");

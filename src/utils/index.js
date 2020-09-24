@@ -56,3 +56,12 @@ export const generateCurrentDateString = () => {
     const pattern = date.compile("MMM D YYYY");
     return date.format(currentDate, pattern);
 };
+
+export const isSunday = () => {
+    const currentDate = new Date();
+    if (currentDate.getDay() === 0) {
+        return true;
+    }else{
+        return false;
+    }
+}
