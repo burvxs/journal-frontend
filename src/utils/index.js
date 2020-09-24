@@ -41,3 +41,11 @@ export const loadRequestedTasks = (request, setRequestedTasks, callback=null) =>
     })
     .catch((err) => console.warn(err));
 };
+
+export const checkAuth = () => {
+    if(localStorage.getItem('jwt') === "null"){
+        return false
+    }else{
+        return true
+    }
+}

@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
-import {CATEGORY_INDEX_URL } from "../constants";
+import {CATEGORY_INDEX_URL, CATEGORY_CREATE_URL } from "../constants";
 
 const CategoryList = (props) => {
     const [categories, setCategories] = useState([]);
+    const [categoryText, setCategoryText] = useState("");
 
     const fetchCategories = () => {
         axios
@@ -16,9 +17,11 @@ const CategoryList = (props) => {
             console.warn(err);
         });
     };
+
     const handleItemClick = (e) => {
         props.history.push(`/category_sub_list`)
     }
+    
     const renderList = () => {
         if(Array.isArray(categories)){
             return categories.map((c) => {
@@ -26,7 +29,16 @@ const CategoryList = (props) => {
             });
         }
     }
-
+    const submitCategory = (e) => {
+        if(e.keyCode === 13){
+            axios.post(CATEGORY_CREATE_URL, {
+                title: categoryText
+            })
+            .then((res) => {
+                setCategories([...categories, res.data])
+            })
+        }
+    }
     useEffect(() => {
         fetchCategories();
     }, [])
@@ -34,6 +46,13 @@ const CategoryList = (props) => {
         <div className="categoryList">
             <h3>Categories</h3>
             <ul>
+                <li>
+                    <input 
+                        type="text"
+                        onKeyDown={submitCategory}
+                        onChange={(e) => setCategoryText(e.target.value)}
+                        placeholder="Create a category"/>
+                </li>
                 {renderList()}
             </ul>
         </div>

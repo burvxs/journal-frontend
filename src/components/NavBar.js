@@ -6,16 +6,19 @@ const NavBar = () => {
     const logout = () => {
         localStorage.setItem('jwt', "null");
     }
-    
+
     return (
-        <nav>
-            <Link to="/D2D">
-                D2D Tasks
-            </Link>
-            <Link onClick={logout}>
-                Logout
-            </Link>
-        </nav>
+      <nav className="topLevelNav">
+        <Link to="/D2D" className="D2DNav">
+          D2D Tasks
+        </Link>
+        <Link onClick={logout} className="logout">
+          Logout
+        </Link>
+        <Link to="/floaters" className="floatingTasksNav">
+          Floating Tasks
+        </Link>
+      </nav>
     );
 }
 

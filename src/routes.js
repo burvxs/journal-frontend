@@ -3,10 +3,12 @@ import D2DTasks from './components/D2DTasks';
 import CategorisedTasks from "./components/CategorisedTasks";
 import SubCategoryList from "./components/SubCategoryList";
 import CategoryList from "./components/CategoryList";
+import {checkAuth} from './utils';
 import Login from "./components/Login";
-import axios from 'axios'
-import NavBar from './components/NavBar'
+import axios from 'axios';
+import NavBar from './components/NavBar';
 import {HashRouter as Router, Route} from 'react-router-dom';
+import FloatingTasks from './components/FloatingTasks';
 
 const Routes = () => {
     const setDefaultHeaders = () => {
@@ -19,45 +21,63 @@ const Routes = () => {
       <Router>
         <div>
             <Route path="/" component={NavBar}/>
-            <Route exact path="/D2D" render={(props) => {
-                if (localStorage.getItem("jwt") === "null") {
+            <Route exact path="/floaters" render={(props) => {
+                if (!checkAuth()) {
                     props.history.push("/login");
-                    return;
-                }
-                return (
+                } else {
+                    return (
                     <div>
                         <div className="taskContainer">
-                            <D2DTasks {...props}/>
+                            <FloatingTasks {...props} />
                         </div>
                         <div>
-                            <CategoryList {...props}/>
+                            <CategoryList {...props} />
                         </div>
                     </div>
-                )
+                    );
+                }
+            }}/>
+            <Route exact path="/D2D" render={(props) => {
+                if (!checkAuth()) {
+                    props.history.push("/login");       
+                }else{
+                    return (
+                        <div>
+                            <div className="taskContainer">
+                                <D2DTasks {...props} />
+                            </div>
+                            <div>
+                                <CategoryList {...props} />
+                            </div>
+                        </div>
+                    );
+                }
+
             }} />
             <Route exact path="/category_sub_list" render={(props) => {
-                if (localStorage.getItem("jwt") === "null"){
+                if (!checkAuth()){
                     props.history.push("/login");
-                    return;
+                }else{
+                    return (
+                        <div>
+                            <SubCategoryList {...props} />
+                            <CategoryList {...props} />
+                        </div>
+                    );
                 }
-                return ( 
-                    <div>
-                        <SubCategoryList {...props}/>
-                        <CategoryList {...props}/>
-                    </div>
-                )
+
             }}/>
             <Route exact path="/category_sub_list/:listId" render={(props) => {
-                if (localStorage.getItem("jwt") === "null") {
+                if (!checkAuth()) {
                     props.history.push("/login");
-                    return;
+                }else{
+                    return (
+                        <div>
+                            <CategorisedTasks {...props} />
+                            <CategoryList {...props} />
+                        </div>
+                    );
                 }
-                return (
-                    <div>
-                    <CategorisedTasks {...props} />
-                    <CategoryList {...props} />
-                    </div>
-                );
             }}/>
             <Route
                 exact

@@ -53,6 +53,21 @@ const CreateTask = (props) => {
                         global: false,
                     })
                     .then((res) => {
+                        props.onCreate(res.data);
+                        console.log("POST DATA: ", res.data);
+                    e.submit();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }else if(validateInput() && props.taskType === "FLOATER"){
+                    axios.post(TASK_CREATE_URL, {
+                    task: state.task,
+                    solidifier: state.solidifier,
+                    priorityLevel: state.priorityLevel,
+                    global: true,
+                    })
+                    .then((res) => {
                     props.onCreate(res.data);
                     console.log("POST DATA: ", res.data);
                     e.submit();
