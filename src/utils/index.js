@@ -2,6 +2,7 @@ import React from 'react'
 import TaskItem from '../components/TaskItem'
 import {USER_TASKS_URL} from '../constants'
 import axios from 'axios'
+import date from "date-and-time";
 
 export const renderTasks = (tasks, callback=onDataFail) => {
     if (Array.isArray(tasks)){
@@ -49,3 +50,9 @@ export const checkAuth = () => {
         return true
     }
 }
+
+export const generateCurrentDateString = () => {
+    const currentDate = new Date();
+    const pattern = date.compile("MMM D YYYY");
+    return date.format(currentDate, pattern);
+};

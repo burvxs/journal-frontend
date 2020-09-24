@@ -12,7 +12,7 @@ const NavBar = () => {
         <Link to="/D2D" className="D2DNav">
           D2D Tasks
         </Link>
-        <Link onClick={logout} className="logout">
+        <Link onClick={logout} to="" className="logout">
           Logout
         </Link>
         <Link to="/floaters" className="floatingTasksNav">

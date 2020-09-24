@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {SUBLIST_GET_URL} from '../constants'
+import {SUBLIST_GET_URL, SUBLIST_CREATE_URL} from '../constants'
 
 const SubCategoryList = (props) => {
     const [list, setList] = useState([]);
+    const [listText, setListText] = useState([]);
 
     const fetchSubList = () => {
         axios.get(SUBLIST_GET_URL)
@@ -21,7 +22,7 @@ const SubCategoryList = (props) => {
     }, []);
 
     const handleClick = (e) => {
-        props.history.push(`/category_sub_list/${e.target.id}`)
+        props.history.push(`/category_sub_list/${props.match.params["category_id"]}/${e.target.id}`)
     }
 
     const renderList = () => {
@@ -33,10 +34,37 @@ const SubCategoryList = (props) => {
             );
         });
     };
+
+    const submitList = (e) => {
+        if(e.keyCode === 13){
+            axios.post(SUBLIST_CREATE_URL, {
+                title: listText,
+                category_id: props.match.params["category_id"]
+            })
+            .then(res => {
+                setList([...list, res.data])
+            })
+            .catch(err => {
+                console.warn(err);
+            })
+        }
+    }
+
     return (
-        <div className="sublistWrapper">
-        <ul>{renderList()}</ul>
-        </div>
+      <div className="sublistWrapper">
+        <h3>Your lists</h3>
+        <ul>
+          <li>
+            <input
+                type="text"
+                onKeyDown={submitList}
+                onChange={(e) => setListText(e.target.value)}
+                placeholder="Create a list"
+            />
+          </li>
+          {renderList()}
+        </ul>
+      </div>
     );
 }
 

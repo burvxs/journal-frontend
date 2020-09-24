@@ -1,7 +1,7 @@
 .taskContainer {
   display: grid;
   grid-column: auto;
-  grid-template-columns: 50px 200px 200px 200px;
+  grid-template-columns:  50px 200px 200px 200px;
   grid-template-rows: auto;
   row-gap: 20px;
   column-gap: 30px
@@ -25,7 +25,7 @@
 
 .taskContainer{
   margin-top : 35px;
-  margin-left: 30%;
+  margin-left: 20%;
 }
 
 #columnHeaders {
@@ -33,13 +33,32 @@
 }
 
 .categoryWrapper {
-  position: absolute;
+  position: relative;
 }
-
+.currentDate{
+  position: relative;
+}
 .categoryList > ul {
   list-style-type: none;
 }
 
+.categoryList {
+  margin-left: 20px;
+}
+
 .taskListWrapper {
   display: contents;
+}
+
+.contentWrapper {
+  display: contents;
+  grid-template-rows: 10px;
+}
+
+.sublistWrapper {
+  margin-left : 20px;
+}
+
+.sublistWrapper > ul{
+  list-style-type: none;
 }

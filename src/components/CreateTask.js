@@ -10,6 +10,7 @@ const CreateTask = (props) => {
     })
 
     const handleInput = (e) => {
+        e.preventDefault();
         setState({
             ...state,
             [e.target.name]: e.target.value
@@ -83,7 +84,7 @@ const CreateTask = (props) => {
       <React.Fragment>
         <form className="D2Dform" onSubmit={handleSubmit}>
           <input type="checkbox" readOnly />
-          <input name="task" type="text" onChange={handleInput} />
+          <input name="task" type="text" onClick={(e) => console.log(e.target)} onChange={handleInput} />
           <input name="solidifier" type="text" onChange={handleInput} />
           <input
             type="text"

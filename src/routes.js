@@ -3,7 +3,7 @@ import D2DTasks from './components/D2DTasks';
 import CategorisedTasks from "./components/CategorisedTasks";
 import SubCategoryList from "./components/SubCategoryList";
 import CategoryList from "./components/CategoryList";
-import {checkAuth} from './utils';
+import {checkAuth, generateCurrentDateString} from './utils';
 import Login from "./components/Login";
 import axios from 'axios';
 import NavBar from './components/NavBar';
@@ -26,7 +26,7 @@ const Routes = () => {
                     props.history.push("/login");
                 } else {
                     return (
-                    <div>
+                    <div className="contentWrapper">
                         <div className="taskContainer">
                             <FloatingTasks {...props} />
                         </div>
@@ -42,7 +42,8 @@ const Routes = () => {
                     props.history.push("/login");       
                 }else{
                     return (
-                        <div>
+                        <div className="contentWrapper">
+                            <h5>{generateCurrentDateString()}</h5>
                             <div className="taskContainer">
                                 <D2DTasks {...props} />
                             </div>
@@ -54,28 +55,40 @@ const Routes = () => {
                 }
 
             }} />
-            <Route exact path="/category_sub_list" render={(props) => {
+            <Route exact path="/category_sub_list/:category_id" render={(props) => {
                 if (!checkAuth()){
                     props.history.push("/login");
                 }else{
                     return (
-                        <div>
-                            <SubCategoryList {...props} />
-                            <CategoryList {...props} />
+                      <div className="contentWrapper">
+                        <div className="taskContainer">
+                          <D2DTasks {...props} />
                         </div>
+                        <div>
+                          <CategoryList {...props} />
+                          <SubCategoryList {...props}/>
+                        </div>
+                      </div>
                     );
                 }
 
             }}/>
-            <Route exact path="/category_sub_list/:listId" render={(props) => {
+            <Route exact path="/category_sub_list/:category_id/:listId" render={(props) => {
                 if (!checkAuth()) {
                     props.history.push("/login");
                 }else{
                     return (
-                        <div>
+                      <div>
+                        <div className="contentWrapper">
+                          <div className="taskContainer">
                             <CategorisedTasks {...props} />
+                          </div>
+                          <div>
                             <CategoryList {...props} />
+                            <SubCategoryList {...props} />
+                          </div>
                         </div>
+                      </div>
                     );
                 }
             }}/>

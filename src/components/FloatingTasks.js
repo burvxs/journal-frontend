@@ -13,11 +13,11 @@ const FloatingTasks = () => {
     }, []);
 
     return (
-        <div className="taskListWrapper">
-            <ColumnHeader/>
-            <CreateTask taskType="FLOATER"/>
+        <React.Fragment>
+            <ColumnHeader />
+            <CreateTask taskType="FLOATER" />
             {renderTasks(floaters)}
-        </div>
+        </React.Fragment>
     );
 }
 

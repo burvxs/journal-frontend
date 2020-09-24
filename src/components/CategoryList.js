@@ -19,7 +19,7 @@ const CategoryList = (props) => {
     };
 
     const handleItemClick = (e) => {
-        props.history.push(`/category_sub_list`)
+        props.history.push(`/category_sub_list/${e.target.id}`)
     }
     
     const renderList = () => {

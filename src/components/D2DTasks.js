@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 
 import { USER_TASKS_URL } from "../constants";
-import {renderTasks} from "../utils"
+import {renderTasks, loadRequestedTasks} from "../utils"
 
 import ColumnHeader from './ColumnHeader';
 import CreateTask from './CreateTask'
@@ -17,28 +17,18 @@ const D2DTasks = () => {
             setAllD2DTasks([...allD2Dtasks, createdTask])
         }
     }
-    const loadD2DTasks = () => {
-        axios
-        .get(USER_TASKS_URL, {
-            params: { task_type : "D2D" },
-        })
-        .then((res) => {
-            console.log(res)
-            setAllD2DTasks([...res.data["requested_task_set"]])
-        })
-        .catch((err) => console.warn(err));
-    };
 
     useEffect(() => {
-        loadD2DTasks("D2D");
+        loadRequestedTasks({task_type : "D2D"}, setAllD2DTasks);
     }, [createdTask]);
 
+
     return (
-      <div className="taskListWrapper">
+      <React.Fragment>
         <ColumnHeader />
-        <CreateTask onCreate={passCreatedTask}/>
+        <CreateTask onCreate={passCreatedTask} taskType="D2D" />
         {renderTasks(allD2Dtasks)}
-      </div>
+      </React.Fragment>
     );
 }
 

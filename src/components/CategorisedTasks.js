@@ -8,10 +8,8 @@ const CategorisedTasks = (props) => {
     const [associatedTasks, setAssociatedTasks] = useState([]);
     let isMounted = false;
 
-    useEffect(() => {
-        isMounted = true
-        
-        if(isMounted){
+    const fetchAssociatedTasks = () => {
+        if (isMounted) {
             loadRequestedTasks(
             {
                 task_type: "CATEGORISED",
@@ -20,11 +18,25 @@ const CategorisedTasks = (props) => {
             setAssociatedTasks
             );
         }
+    }
+
+    useEffect(() => {
+        isMounted = true   
+        fetchAssociatedTasks();
 
         return () => {
             isMounted = false
         }
     }, [])
+
+    useEffect(() => {
+        isMounted = true;
+        fetchAssociatedTasks();
+
+        return () => {
+          isMounted = false;
+        };
+    }, [props.match.params.listId])
 
     return (
         <div className="taskContainer">
