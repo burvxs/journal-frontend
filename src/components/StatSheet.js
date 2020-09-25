@@ -6,9 +6,40 @@ const StatSheet = (props) => {
     const [stats, setStats] = useState({});
 
     const fetchStats = () => {
-        axios.get(TRACKER_INDEX_URL)
-        .then(res => setStats(res.data))
-        .catch(err => console.warn(err));
+        return axios.get(TRACKER_INDEX_URL)
+        .then((res) => {
+            setStats(res.data);
+        })
+        .catch((err) => {
+            console.warn(err);
+        });
+    }
+
+    const pollStats = () => {
+        const responsePromise = new Promise((resolve, reject) => {
+            axios.get(TRACKER_INDEX_URL)
+            .then((res) => {
+                console.log(res.data);
+                resolve(res.data);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+        });
+        
+        onStatRecievalCompareToState(responsePromise)
+    }
+
+    const onStatRecievalCompareToState = (getStatsPromise) => {
+        getStatsPromise.then((data) => {
+            
+            if (data["incomplete_total"] !== stats.incomplete_total) {
+                setStats(data);
+            }
+        })
+        .catch((err) => {
+            console.warn(err);
+        });
     }
 
     const displayStats = () => {
@@ -43,8 +74,8 @@ const StatSheet = (props) => {
     }
 
     useEffect(() => {
-        //fetchStats();
-        //setInterval(fetchStats, 3000);
+        fetchStats();
+        setInterval(pollStats, 3000);
     }, [])
     return (
         <React.Fragment>

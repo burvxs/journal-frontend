@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {TASK_UPDATE_URL} from '../constants'
 import axios from 'axios';
 
-const TaskItem = (props, refs) => {
+const TaskItem = (props) => {
     const [isComplete, setIsComplete] = useState(props.isComplete);
     const [onCompleteClass, setOnCompleteClass] = useState();
     const [task, setTask] = useState(props.userTask);
@@ -94,9 +94,7 @@ const TaskItem = (props, refs) => {
           "task" : userTask
         })
         .then((res) => {
-          if (res.data.task !== undefined){
             setTask(res.data.task);
-          }
           console.log("SETTING TASK ", res.data)
         })
         .catch((err) => console.warn(err))

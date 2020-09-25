@@ -11,9 +11,15 @@ const FloatingTasks = () => {
         }, setFloaters);
     }, []);
 
+    const passCreatedTask = (newTask) => {
+        if (newTask !== undefined) {
+            setFloaters([...floaters, newTask]);
+        }
+    };
+
     return (
         <React.Fragment>
-            <CreateTask taskType="FLOATER" />
+            <CreateTask taskType="FLOATER" onCreate={passCreatedTask}/>
             {renderTasks(floaters)}
         </React.Fragment>
     );

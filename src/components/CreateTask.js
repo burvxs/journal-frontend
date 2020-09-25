@@ -40,7 +40,6 @@ const CreateTask = (props) => {
                 .then((res) => {
                     props.onCreate(res.data);
                     console.log("POST DATA: ", res.data);
-                    e.submit();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -56,7 +55,6 @@ const CreateTask = (props) => {
                     .then((res) => {
                         props.onCreate(res.data);
                         console.log("POST DATA: ", res.data);
-                    e.submit();
                     })
                     .catch((err) => {
                         console.log(err);
@@ -71,7 +69,6 @@ const CreateTask = (props) => {
                     .then((res) => {
                     props.onCreate(res.data);
                     console.log("POST DATA: ", res.data);
-                    e.submit();
                     })
                     .catch((err) => {
                     console.log(err);

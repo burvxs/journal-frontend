@@ -26,12 +26,17 @@ const SubCategoryList = (props) => {
     }
 
     const renderList = () => {
-        return list.map((item) => {
-            return (
-                <li onClick={handleClick} key={item.id} id={item.id}>
-                    {item.title}
-                </li>
-            );
+        const renderingList = list.filter((item) => {
+            console.log(item)
+            return parseInt(item["category_id"]) === parseInt(props.match.params.category_id);
+        })
+        console.log(renderingList);
+        return renderingList.map((item) => {
+          return (
+            <li onClick={handleClick} key={item.id} id={item.id}>
+              {item.title}
+            </li>
+          );
         });
     };
 

@@ -1,3 +1,6 @@
+
+export const DEVELOPMENT = false;
+export const PRODUCTION = true;
 // AUTH ROUTES
 export const LOGIN_AUTH_URL = "http://localhost:3000/auth/login";
 export const USER_TASKS_URL = "http://localhost:3000/auth/tasks";

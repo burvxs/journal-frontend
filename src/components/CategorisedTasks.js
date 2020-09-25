@@ -19,6 +19,12 @@ const CategorisedTasks = (props) => {
         }
     }
 
+    const passCreatedTask = (newTask) => {
+        if (newTask !== undefined) {
+            setAssociatedTasks([...associatedTasks, newTask]);
+        }
+    };
+
     useEffect(() => {
         isMounted = true   
         fetchAssociatedTasks();
@@ -39,7 +45,7 @@ const CategorisedTasks = (props) => {
 
     return (
         <div className="taskContainer">
-            <CreateTask taskType="SUBLIST" listId={props.match.params.listId}/>
+            <CreateTask taskType="SUBLIST" listId={props.match.params.listId} onCreate={passCreatedTask}/>
             {renderTasks(associatedTasks)}
         </div>
     );

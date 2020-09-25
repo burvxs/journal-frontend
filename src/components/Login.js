@@ -5,7 +5,7 @@ import axios from 'axios';
 const Login = (props) => {
     const [email, setEmail] = useState(EMAIL_TEST_LOGIN);
     const [password, setPassword] = useState(PASSWORD_TEST_LOGIN);
-    const [isError404, setIsError404] = useState(false)
+    const [isError404, setIsError404] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +21,9 @@ const Login = (props) => {
             console.log(res.data);
             localStorage.setItem("jwt", res.data.jwt)
             console.log(props.history.location);
-            props.history.push("/D2D");
+            props.history.push("/D2D", {
+              params : localStorage.getItem("jwt")
+            });
         })
         .catch(err => {
             setIsError404(true)

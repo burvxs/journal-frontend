@@ -5,14 +5,12 @@ import {renderTasks, loadRequestedTasks, isSunday} from "../utils"
 import CreateTask from './CreateTask'
 
 const D2DTasks = (props) => {
-    const [createdTask, setCreatedTask] = useState({})
     const [allD2Dtasks, setAllD2DTasks] = useState([]);
     const [isSundayState, setIsSundayState] = useState(false);
 
     const passCreatedTask = (newTask) => {
         if (newTask !== undefined){
-            setCreatedTask(newTask);
-            setAllD2DTasks([...allD2Dtasks, createdTask]);
+            setAllD2DTasks([...allD2Dtasks, newTask]);
         }
     }
 
