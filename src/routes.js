@@ -41,7 +41,7 @@ const Routes = () => {
   };
   setDefaultHeaders();
   return (
-    <Router>
+    <Router basename="journal-frontend">
       <div>
         <Route path="/" component={NavBar} />
         {onlyRenderReviewRouteIfSunday()}
